@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokterController;
+use App\Http\Controllers\PoliController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,7 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->prefix('admin')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('admin.dashboard');
+        })->name('dashboard');
+        Route::resource('polis', PoliController::class);
+        Route::resource('dokter', DokterController::class);
     });
 
     Route::middleware('role:dokter')->prefix('dokter')->group(function () {
