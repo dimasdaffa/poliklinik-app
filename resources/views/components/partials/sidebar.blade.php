@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ route('dashboard') }}" class="brand-link">
+    <a href="{{ route('admin.dashboard') }}" class="brand-link">
         <i class="fas fa-clinic-medical brand-image" style="font-size: 2rem; color: #fff;"></i>
         <span class="brand-text font-weight-light">Poliklinik</span>
     </a>
@@ -23,7 +23,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Dashboard -->
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard Admin</p>
                     </a>
@@ -42,6 +42,22 @@
                     <a href="{{ route('dokter.index') }}" class="nav-link {{ request()->routeIs('dokter.*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-hospital"></i>
                         <p>Manajemen Dokter</p>
+                    </a>
+                </li>
+
+                <!-- Manajemen Pasien -->
+                <li class="nav-item">
+                    <a href="{{ route('pasien.index') }}" class="nav-link {{ request()->routeIs('pasien.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user-injured"></i>
+                        <p>Manajemen Pasien</p>
+                    </a>
+                </li>
+
+                <!-- Manajemen Obat -->
+                <li class="nav-item">
+                    <a href="{{ route('obat.index') }}" class="nav-link {{ request()->routeIs('obat.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-pills"></i>
+                        <p>Manajemen Obat</p>
                     </a>
                 </li>
 
