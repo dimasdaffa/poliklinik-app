@@ -40,7 +40,10 @@
 
         @include('components.partials.sidebar')
 
-        @yield('content')
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            {{ $slot }}
+        </div>
 
         @include('components.partials.footer')
     </div>

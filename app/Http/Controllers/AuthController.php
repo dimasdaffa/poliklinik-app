@@ -40,8 +40,8 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:' . User::class,
             'password' => 'required|string|min:6|confirmed',
             'alamat' => 'required|string|max:255',
-            'no_hp' => 'required|numeric|max:20',
-            'no_ktp' => 'required|numeric|max:20',
+            'no_hp' => 'required|numeric|min:8',
+            'no_ktp' => 'required|numeric|min:8',
         ]);
 
         User::create([
