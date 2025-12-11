@@ -95,6 +95,14 @@
                     </a>
                 </li>
 
+                <!-- Periksa Pasien -->
+                <li class="nav-item">
+                    <a href="{{ route('periksa-pasien.index') }}" class="nav-link {{ request()->routeIs('periksa-pasien.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-stethoscope"></i>
+                        <p>Periksa Pasien</p>
+                    </a>
+                </li>
+
                 {{-- MENU PASIEN --}}
                 @elseif(auth()->user()->role === 'pasien')
                 <!-- Dashboard Pasien -->
@@ -112,6 +120,7 @@
                         <p>Daftar Poli</p>
                     </a>
                 </li>
+
                 @endif
 
                 <!-- Divider -->

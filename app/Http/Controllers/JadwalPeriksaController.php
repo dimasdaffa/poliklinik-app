@@ -96,7 +96,7 @@ class JadwalPeriksaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resourcce from storage.
      */
     public function destroy(string $id)
     {

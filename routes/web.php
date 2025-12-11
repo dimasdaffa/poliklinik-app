@@ -7,6 +7,7 @@ use App\Http\Controllers\JadwalPeriksaController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\Pasien\PoliController as PasienPoliController;
+use App\Http\Controllers\Dokter\PeriksaPasienController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
             return view('dokter.dashboard');
         })->name('dokter.dashboard');
         Route::resource('jadwal-periksa', JadwalPeriksaController::class);
+        Route::resource('periksa-pasien', PeriksaPasienController::class);
     });
 
     Route::middleware('role:pasien')->prefix('pasien')->group(function () {
@@ -45,3 +47,4 @@ Route::middleware('auth')->group(function () {
         Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('pasien.daftar');
     });
 });
+//
