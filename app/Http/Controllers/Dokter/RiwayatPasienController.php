@@ -16,7 +16,7 @@ class RiwayatPasienController extends Controller
             'detailPeriksas.obat'
         ])->orderBy('tgl_periksa', 'desc')->get();
 
-        return view('riwayat-pasien.index', compact('riwayatPasien'));
+        return view('dokter.riwayat-pasien.index', compact('riwayatPasien'));
     }
 
     public function show($id){
@@ -26,6 +26,6 @@ class RiwayatPasienController extends Controller
             'detailPeriksas.obat'
         ])->findOrFail($id);
 
-        return view('riwayat-pasien.show', compact('periksa'));
+        return view('dokter.riwayat-pasien.show', compact('periksa'));
     }
-    }
+}

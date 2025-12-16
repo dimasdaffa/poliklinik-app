@@ -103,6 +103,14 @@
                     </a>
                 </li>
 
+                <!-- Riwayat Pasien -->
+                <li class="nav-item">
+                    <a href="{{ route('dokter.riwayat-pasien.index') }}" class="nav-link {{ request()->routeIs('dokter.riwayat-pasien.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p>Riwayat Pasien</p>
+                    </a>
+                </li>
+
                 {{-- MENU PASIEN --}}
                 @elseif(auth()->user()->role === 'pasien')
                 <!-- Dashboard Pasien -->
