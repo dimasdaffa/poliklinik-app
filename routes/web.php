@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
             return view('pasien.dashboard');
         })->name('pasien.dashboard');
         Route::get('/daftar', [PasienPoliController::class, 'get'])->name('pasien.daftar');
-        Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('pasien.daftar');
+        Route::post('/daftar', [PasienPoliController::class, 'submit'])->name('pasien.daftar.submit');
     });
 });
 //

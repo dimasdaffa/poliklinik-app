@@ -26,14 +26,13 @@ class PeriksaPasienController extends Controller
         return view('dokter.periksa-pasien.index', compact('daftarPasien'));
     }
 
-    public function create(Request $request)
+    public function create($id)
     {
-        $id = $request->get('id'); // Get ID from query parameter
-
         // Validate that ID is provided and exists
         if (!$id) {
             return redirect()->route('periksa-pasien.index')
-                ->with('error', 'ID daftar poli tidak ditemukan.');
+                ->with('message', 'ID daftar poli tidak ditemukan.')
+                ->with('type', 'danger');
         }
 
         // Verify the daftar_poli exists and belongs to the current doctor
@@ -45,13 +44,15 @@ class PeriksaPasienController extends Controller
 
         if (!$daftarPoli) {
             return redirect()->route('periksa-pasien.index')
-                ->with('error', 'Data pasien tidak ditemukan atau bukan milik Anda.');
+                ->with('message', 'Data pasien tidak ditemukan atau bukan milik Anda.')
+                ->with('type', 'danger');
         }
 
         // Check if already examined
         if ($daftarPoli->periksa) {
             return redirect()->route('periksa-pasien.index')
-                ->with('error', 'Pasien ini sudah diperiksa.');
+                ->with('message', 'Pasien ini sudah diperiksa.')
+                ->with('type', 'warning');
         }
 
         $obats = Obat::all();

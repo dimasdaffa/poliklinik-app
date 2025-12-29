@@ -27,7 +27,7 @@
                                                 </ul>
                                             </div>
                                         @endif
-                                        <form action="{{ route('pasien.daftar') }}" method="POST">
+                                        <form action="{{ route('pasien.daftar.submit') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="id_pasien" value="{{ $user->id }}">
 

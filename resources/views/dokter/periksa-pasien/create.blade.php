@@ -1,5 +1,4 @@
 <x-layouts.app title="Periksa Pasien">
-    {{-- ALERT FLASH MESSAGE --}}
     <div class="container-fluid px-4 mt-4">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
@@ -9,7 +8,9 @@
                 @if (session('error'))
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <strong>Error!</strong> {{ session('error') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
 
@@ -21,7 +22,9 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 @endif
 
@@ -34,7 +37,7 @@
 
                             <div class="form-group mb-3">
                                 <label for="obat" class="form-label">Pilih Obat</label>
-                                <select id="select-obat" class="form-select">
+                                <select id="select-obat" class="form-control">
                                     <option value="">-- Pilih Obat --</option>
                                     @foreach ($obats as $obat)
                                         <option value="{{ $obat->id }}" data-nama="{{ $obat->nama_obat }}"
@@ -59,7 +62,7 @@
 
                             <div class="form-group mb-3">
                                 <label>Total Harga</label>
-                                <p id="total-harga" class="fw-bold">Rp 0</p>
+                                <p id="total-harga" class="font-weight-bold">Rp 0</p>
                             </div>
 
                             <button type="submit" class="btn btn-success">Simpan</button>
@@ -70,59 +73,59 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
 
-<script>
-    const selectObat = document.getElementById('select-obat');
-    const listObat = document.getElementById('obat-terpilih');
-    const inputBiaya = document.getElementById('biaya_periksa');
-    const inputObatJson = document.getElementById('obat_json');
-    const totalHargaEl = document.getElementById('total-harga');
+    <script>
+        const selectObat = document.getElementById('select-obat');
+        const listObat = document.getElementById('obat-terpilih');
+        const inputBiaya = document.getElementById('biaya_periksa');
+        const inputObatJson = document.getElementById('obat_json');
+        const totalHargaEl = document.getElementById('total-harga');
 
-    let daftarObat = [];
+        let daftarObat = [];
 
-    selectObat.addEventListener('change', () => {
-        const selectedOption = selectObat.options[selectObat.selectedIndex];
-        const id = selectedOption.value;
-        const nama = selectedOption.dataset.nama;
-        const harga = parseInt(selectedOption.dataset.harga || 0);
+        selectObat.addEventListener('change', () => {
+            const selectedOption = selectObat.options[selectObat.selectedIndex];
+            const id = selectedOption.value;
+            const nama = selectedOption.dataset.nama;
+            const harga = parseInt(selectedOption.dataset.harga || 0);
 
-        if (!id || daftarObat.some(o => o.id == id)) {
-            return;
+            if (!id || daftarObat.some(o => o.id == id)) {
+                return;
+            }
+
+            daftarObat.push({
+                id,
+                nama,
+                harga
+            });
+            renderObat();
+            selectObat.selectedIndex = 0;
+        });
+
+        function renderObat() {
+            listObat.innerHTML = '';
+            let total = 0;
+
+            daftarObat.forEach((obat, index) => {
+                total += obat.harga;
+
+                const item = document.createElement('li');
+                item.className = 'list-group-item d-flex justify-content-between align-items-center';
+                item.innerHTML = `
+                    ${obat.nama} - Rp ${obat.harga.toLocaleString()}
+                    <button type="button" class="btn btn-sm btn-danger" onclick="hapusObat(${index})">Hapus</button>
+                `;
+                listObat.appendChild(item);
+            });
+
+            inputBiaya.value = total;
+            totalHargaEl.textContent = `Rp ${total.toLocaleString()}`;
+            inputObatJson.value = JSON.stringify(daftarObat.map(o => o.id));
         }
 
-        daftarObat.push({
-            id,
-            nama,
-            harga
-        });
-        renderObat();
-        selectObat.selectedIndex = 0;
-    });
-
-    function renderObat() {
-        listObat.innerHTML = '';
-        let total = 0;
-
-        daftarObat.forEach((obat, index) => {
-            total += obat.harga;
-
-            const item = document.createElement('li');
-            item.className = 'list-group-item d-flex justify-content-between align-items-center';
-            item.innerHTML = `
-                ${obat.nama} - Rp ${obat.harga.toLocaleString()}
-                <button type="button" class="btn btn-sm btn-danger" onclick="hapusObat(${index})">Hapus</button>
-            `;
-            listObat.appendChild(item);
-        });
-
-        inputBiaya.value = total;
-        totalHargaEl.textContent = `Rp ${total.toLocaleString()}`;
-        inputObatJson.value = JSON.stringify(daftarObat.map(o => o.id));
-    }
-
-    function hapusObat(index) {
-        daftarObat.splice(index, 1);
-        renderObat();
-    }
-</script>
+        function hapusObat(index) {
+            daftarObat.splice(index, 1);
+            renderObat();
+        }
+    </script>
+</x-layouts.app>
