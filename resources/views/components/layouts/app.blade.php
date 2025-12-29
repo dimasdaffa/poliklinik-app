@@ -42,7 +42,8 @@
 
         <!-- Content Wrapper -->
         <div class="content-wrapper">
-            {{ $slot }}
+            {{ $slot ?? '' }}
+            @yield('content')
         </div>
 
         @include('components.partials.footer')
